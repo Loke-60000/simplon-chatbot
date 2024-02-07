@@ -1,0 +1,300 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+
+/* ================
+Note: Not reponsive yet
+================ */
+
+:root {
+  --primary-color: black;
+  --secondary-color: white;
+  --highlight-color: orange;
+  --background-light: #f9f9f9;
+  --background-hover: #f1f1f1;
+  --font-family: "Oswald", sans-serif;
+  --font-size-medium: medium;
+  --border-standard: solid 5px black;
+  --chat-background: #f1f1f1;
+  --user-message-bg: #007bff;
+  --bot-message-bg: #666;
+  --ai-message-bg: #4a4a4a;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Oswald;
+}
+
+.miniTitle {
+  font-size: medium;
+}
+
+.logoContainer {
+  width: 100%;
+  float: left;
+}
+
+.logo {
+  height: 200px;
+  margin: 20px 20px 20px 20px;
+}
+
+.contentContainment {
+  width: 70vw;
+  align-items: center;
+  flex-direction: column;
+}
+
+nav {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  background-color: black;
+  color: white;
+}
+
+.NavLinks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+nav :any-link {
+  text-decoration: none;
+  color: white;
+  font-size: medium;
+}
+
+nav :any-link:hover {
+  transition: 1s;
+  text-decoration: none;
+  color: orange;
+}
+
+.pinguGif {
+  border: solid 5px black;
+}
+
+.GodPingu {
+  height: 500px;
+  border: solid 5px black;
+}
+
+.PinguBibleIllustrations {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.PinguBibleIllustrations img {
+  margin-top: 3vh;
+}
+
+.TextBible {
+  width: 90%;
+  margin: 5% 10%;
+  text-align: center;
+}
+
+.IllustrationAncient {
+  border: solid 5px black;
+}
+
+footer {
+  margin-top: 2rem;
+  background-color: black;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.NavLinks {
+  display: inline-block;
+  margin: 10px;
+}
+
+.dropbtn {
+  font-family: Oswald;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  font-size: medium;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bigTheCat {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(100);
+  }
+}
+
+.dropdown-content {
+  background-color: orange;
+  color: black;
+}
+
+.dropdown-content a:hover {
+  animation: rotate360 2s linear infinite;
+}
+
+.pinguGif:hover {
+  animation: bigTheCat 20s;
+  filter: saturate(100);
+  transition: 10s;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: orange;
+  color: black;
+}
+
+.chat-modal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  border: 1px solid #888;
+  background-color: #f1f1f1;
+  display: none;
+  flex-direction: column;
+  z-index: 9;
+}
+
+.chat-header {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.close-button {
+  float: right;
+  color: white;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.chat-content {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-input {
+  width: calc(95% - 20px);
+  margin: 10px;
+  height: 30px;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.open-chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: larger;
+  padding: 10px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  z-index: 8;
+  border: 2px solid white;
+}
+
+.message-div {
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #007bff;
+  align-self: flex-end;
+}
+
+.bot-message {
+  background-color: #666;
+  align-self: flex-start;
+}
+
+.message {
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 20px;
+  color: white;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #0a84ff;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.ai-message {
+  background-color: #4a4a4a;
+  align-self: flex-start;
+  margin-right: auto;
+}
