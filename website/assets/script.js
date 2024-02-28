@@ -6,28 +6,24 @@ document.getElementById("closeChat").onclick = function () {
   document.getElementById("chatModal").style.display = "none";
 };
 
-// Listen for enter key in chat input
 document
   .getElementById("chatInput")
   .addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent the form from submitting
+      event.preventDefault();
       sendMessage();
     }
   });
 
 function sendMessage() {
   var message = document.getElementById("chatInput").value;
-  if (message.trim() === "") return; // Don't send empty messages
+  if (message.trim() === "") return;
 
-  // Add the user's message to the chat content
   appendMessage(message, "user-message");
 
-  // Clear the input field
   document.getElementById("chatInput").value = "";
 
-  // AJAX request to Flask API
-  fetch("http://127.0.0.1:5000/chat", {
+  fetch("http://127.0.0.1:8000/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -59,8 +55,7 @@ function appendMessage(message, messageType) {
   var messageDiv = document.createElement("div");
   messageDiv.textContent =
     messageType === "user-message" ? "You: " + message : "LokB0t: " + message;
-  messageDiv.classList.add("message", messageType); // Add classes for styling
+  messageDiv.classList.add("message", messageType);
   chatContent.appendChild(messageDiv);
-  // Scroll to the latest message
   chatContent.scrollTop = chatContent.scrollHeight;
 }

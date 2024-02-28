@@ -1,3 +1,5 @@
+# Chatbot API/CLI
+
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
@@ -9,6 +11,14 @@
 
 **Warning:** The CLI sends the entire history every time. Manage your API's credit carefully.
 
-### CLI
+- Run the CLI
 
-To interact with GPT 3.5 using the command-line interface (CLI), run the following command:
+```
+python cli-chat.py
+```
+
+- Run the API
+
+```
+python api.py
+```

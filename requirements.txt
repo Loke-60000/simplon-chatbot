@@ -1,4 +1,4 @@
-Flask
+fastapi
 requests
 beautifulsoup4
 Flask-Cors
