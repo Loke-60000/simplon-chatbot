@@ -32,7 +32,7 @@ jobs:
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1
         with:
-          login-server: lokchabot.azurecr.io
+          login-server: lokb0t.azurecr.io
           username: lokb0t
           password: ${{ secrets.ACR_PASSWORD }}
 
@@ -50,8 +50,8 @@ jobs:
 
       - name: Deploy Backend to Azure App Service
         run: |
-          az webapp config container set --name lokbackendchatbot --resource-group b15-Lok --docker-custom-image-name lokchabot.azurecr.io/backend:${{ github.run_id }}
+          az webapp config container set --name lokbackendchatbot --resource-group b15-Lok --docker-custom-image-name lokb0t.azurecr.io/backend:${{ github.run_id }}
 
       - name: Deploy Frontend to Azure App Service
         run: |
-          az webapp config container set --name lokbackendchatbot --resource-group b15-Lok --docker-custom-image-name lokchabot.azurecr.io/frontend:${{ github.run_id }}
+          az webapp config container set --name lokbackendchatbot --resource-group b15-Lok --docker-custom-image-name lokb0t.azurecr.io/frontend:${{ github.run_id }}
