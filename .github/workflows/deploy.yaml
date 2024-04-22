@@ -39,14 +39,14 @@ jobs:
       - name: Build and push backend Docker image
         working-directory: backend
         run: |
-          docker build -t lokchabot.azurecr.io/backend:${{ github.run_id }} .
-          docker push lokchabot.azurecr.io/backend:${{ github.run_id }}
+          docker build -t lokb0t.azurecr.io/backend:${{ github.run_id }} .
+          docker push lokb0t.azurecr.io/backend:${{ github.run_id }}
 
       - name: Build and push frontend Docker image
         working-directory: frontend
         run: |
-          docker build -t lokchabot.azurecr.io/frontend:${{ github.run_id }} .
-          docker push lokchabot.azurecr.io/frontend:${{ github.run_id }}
+          docker build -t lokb0t.azurecr.io/frontend:${{ github.run_id }} .
+          docker push lokb0t.azurecr.io/frontend:${{ github.run_id }}
 
       - name: Deploy Backend to Azure App Service
         run: |
