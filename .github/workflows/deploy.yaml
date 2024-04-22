@@ -40,9 +40,9 @@ jobs:
         env:
           AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
         run: |
-          az webapp config container set --name lokbackend --resource-group loke60000 --docker-custom-image-name lokchabot.azurecr.io/backend:${{ github.run_id }}
+          az webapp config container set --name lokbackend --resource-group b15-Lok --docker-custom-image-name lokchabot.azurecr.io/backend:${{ github.run_id }}
       - name: Deploy Frontend to Azure App Service
         env:
           AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
         run: |
-          az webapp config container set --name lokfrontend --resource-group loke60000 --docker-custom-image-name lokchabot.azurecr.io/frontend:${{ github.run_id }}
+          az webapp config container set --name lokfrontend --resource-group b15-Lok --docker-custom-image-name lokchabot.azurecr.io/frontend:${{ github.run_id }}
