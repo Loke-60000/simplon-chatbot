@@ -1,0 +1,39 @@
+name: Build and Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and push Docker images to Azure Container Registry
+        run: |
+          az acr build --registry lokregistry --image backend:latest ./backend
+          az acr build --registry lokregistry --image frontend:latest ./frontend
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Backend to Azure App Service
+        run: |
+          az webapp up --name lokbackend --resource-group loke60000 --plan lokAppServicePlan --image lokregistry.azurecr.io/backend:latest
+      - name: Deploy Frontend to Azure App Service
+        run: |
+          az webapp up --name lokfrontend --resource-group loke60000 --plan lokAppServicePlan --image lokregistry.azurecr.io/frontend:latest
