@@ -1,46 +1,72 @@
-name: Build and Deploy to Azure
+name: Azure Deployment
 
 on:
   push:
     branches:
-      - master
+      - deployment
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Log in to Azure CLI
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in with Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
 
       - name: Login to Azure Container Registry
-        run: echo ${{ secrets.ACR_PASSWORD }} | docker login lokchabot.azurecr.io --username lokchabot --password-stdin
-
-      - name: Build and push Backend Docker image to Azure Container Registry
-        run: |
-          az acr build --registry lokchabot --image backend:${{ github.run_id }} ./backend
-
-      - name: Build and push Frontend Docker image to Azure Container Registry
-        run: |
-          az acr build --registry lokchabot --image frontend:${{ github.run_id }} ./frontend
-
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log in to Azure CLI
-        uses: azure/login@v1
+        uses: azure/docker-login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          login-server: lokchabot.azurecr.io
+          username: lokchabot
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas matplotlib scikit-learn pickle5
+
+      - name: Run tests
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
+          python -m unittest backend/api_test.py
+
+      - name: Build and push backend Docker image
+        working-directory: backend
+        run: |
+          docker build -t lokchabot.azurecr.io/backend:${{ github.run_id }} .
+          docker push lokchabot.azurecr.io/backend:${{ github.run_id }}
+
+      - name: Build and push frontend Docker image
+        working-directory: frontend
+        run: |
+          docker build -t lokchabot.azurecr.io/frontend:${{ github.run_id }} .
+          docker push lokchabot.azurecr.io/frontend:${{ github.run_id }}
 
       - name: Deploy Backend to Azure App Service
         run: |
-          az webapp config container set --name lokbackend --resource-group loke60000 --docker-custom-image-name lokchabot.azurecr.io/backend:${{ github.run_id }}
+          az webapp config container set --name lokbackend --resource-group b15-Lok --docker-custom-image-name lokchabot.azurecr.io/backend:${{ github.run_id }}
 
       - name: Deploy Frontend to Azure App Service
         run: |
-          az webapp config container set --name lokfrontend --resource-group loke60000 --docker-custom-image-name lokchabot.azurecr.io/frontend:${{ github.run_id }}
+          az webapp config container set --name lokfrontend --resource-group b15-Lok --docker-custom-image-name lokchabot.azurecr.io/frontend:${{ github.run_id }}
