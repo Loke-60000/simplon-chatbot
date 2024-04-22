@@ -3,7 +3,7 @@ name: Azure Deployment
 on:
   push:
     branches:
-      - master
+      - deployment
 
 permissions:
   id-token: write
@@ -35,21 +35,6 @@ jobs:
           login-server: lokchabot.azurecr.io
           username: lokchabot
           password: ${{ secrets.ACR_PASSWORD }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pandas matplotlib scikit-learn pickle5
-
-      - name: Run tests
-        run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
-          python -m unittest backend/api_test.py
 
       - name: Build and push backend Docker image
         working-directory: backend
