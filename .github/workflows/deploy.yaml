@@ -32,26 +32,26 @@ jobs:
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1
         with:
-          login-server: lokb0t.azurecr.io
-          username: lokb0t
+          login-server: lokbotchat.azurecr.io
+          username: lokbotchat
           password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Build and push backend Docker image
         working-directory: backend
         run: |
-          docker build -t lokb0t.azurecr.io/backend:${{ github.run_id }} .
-          docker push lokb0t.azurecr.io/backend:${{ github.run_id }}
+          docker build -t lokbotchat.azurecr.io/backend:${{ github.run_id }} .
+          docker push lokbotchat.azurecr.io/backend:${{ github.run_id }}
 
       - name: Build and push frontend Docker image
         working-directory: frontend
         run: |
-          docker build -t lokb0t.azurecr.io/frontend:${{ github.run_id }} .
-          docker push lokb0t.azurecr.io/frontend:${{ github.run_id }}
+          docker build -t lokbotchat.azurecr.io/frontend:${{ github.run_id }} .
+          docker push lokbotchat.azurecr.io/frontend:${{ github.run_id }}
 
       - name: Deploy Backend to Azure App Service
         run: |
-          az webapp config container set --name lokbackendchatbot --resource-group loke60000 --docker-custom-image-name lokb0t.azurecr.io/backend:${{ github.run_id }}
+          az webapp config container set --name lokbackendchatbot --resource-group loke60000 --docker-custom-image-name lokbotchat.azurecr.io/backend:${{ github.run_id }}
 
       - name: Deploy Frontend to Azure App Service
         run: |
-          az webapp config container set --name lokfrontendchatbot --resource-group loke60000 --docker-custom-image-name lokb0t.azurecr.io/frontend:${{ github.run_id }}
+          az webapp config container set --name lokfrontendchatbot --resource-group loke60000 --docker-custom-image-name lokbotchat.azurecr.io/frontend:${{ github.run_id }}
