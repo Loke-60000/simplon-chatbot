@@ -33,7 +33,7 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: lokchabot.azurecr.io
-          username: lokchabot
+          username: lokb0t
           password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Build and push backend Docker image
