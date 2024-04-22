@@ -54,4 +54,4 @@ jobs:
 
       - name: Deploy Frontend to Azure App Service
         run: |
-          az webapp config container set --name lokbackendchatbot --resource-group b15-Lok --docker-custom-image-name lokb0t.azurecr.io/frontend:${{ github.run_id }}
+          az webapp config container set --name lokfrontendchatbot --resource-group b15-Lok --docker-custom-image-name lokb0t.azurecr.io/frontend:${{ github.run_id }}
