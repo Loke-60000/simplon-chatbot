@@ -21,6 +21,8 @@ jobs:
         run: echo ${{ secrets.ACR_PASSWORD }} | docker login lokchabot.azurecr.io --username lokchabot --password-stdin
 
       - name: Build and push Docker images to Azure Container Registry
+        env:
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
         run: |
           az acr build --registry lokchabot --image backend:${{ github.run_id }} ./backend
           az acr build --registry lokchabot --image frontend:${{ github.run_id }} ./frontend
@@ -28,8 +30,6 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    environment:
-      AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
     steps:
       - name: Log in to Azure CLI
         uses: azure/login@v1
@@ -37,8 +37,12 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy Backend to Azure App Service
+        env:
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
         run: |
           az webapp config container set --name lokbackend --resource-group loke60000 --docker-custom-image-name lokchabot.azurecr.io/backend:${{ github.run_id }}
       - name: Deploy Frontend to Azure App Service
+        env:
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
         run: |
           az webapp config container set --name lokfrontend --resource-group loke60000 --docker-custom-image-name lokchabot.azurecr.io/frontend:${{ github.run_id }}
