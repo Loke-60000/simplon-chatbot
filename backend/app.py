@@ -110,13 +110,6 @@ class ChatRequest(BaseModel):
     presence_penalty: float = 0.0
 
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
-# @app.get("/")
-# async def read_index():
-#     return FileResponse(os.path.join("static", "index.html"))
-
 
 @app.post("/generate-text", response_model=dict)
 async def generate_text(request: ChatRequest):
