@@ -9,16 +9,13 @@ function sendMessage() {
   input.value = "";
   messageHistory.push({ sender: "user", message: message });
   displayLoading(true);
-  fetch(
-    "http://lokapi-adabot-backend.francecentral.azurecontainer.io:8000/generate-text",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        history: messageHistory,
-      }),
-    }
-  )
+  fetch("http://lokapi-backend.eastus.azurecontainer.io:8000/generate-text", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      history: messageHistory,
+    }),
+  })
     .then((response) => response.json())
     .then((data) => {
       displayLoading(false);
