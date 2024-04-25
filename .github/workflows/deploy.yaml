@@ -1,7 +1,5 @@
 name: Azure Deployment
 
-name: Azure Deployment
-
 on:
   push:
     branches:
@@ -60,10 +58,6 @@ jobs:
           --ports 8000 \
           --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }}
-        id: deploy-backend
-
-      - name: Print Backend URL
-        run: echo "Backend URL: http://lokapi-adabot-backend.loke60000.azurecontainer.io:8000"
 
       - name: Deploy Frontend to Azure Container Instances
         run: |
@@ -75,7 +69,3 @@ jobs:
           --ports 8001 \
           --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }}
-        id: deploy-frontend
-
-      - name: Print Frontend URL
-        run: echo "Frontend URL: http://lokapi-adabot-frontend.loke60000.azurecontainer.io:8001"
