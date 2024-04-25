@@ -7,7 +7,18 @@ from pydantic import BaseModel
 
 from openai import AzureOpenAI
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 api_key = os.getenv("AZURE_OPENAI_KEY")
 if not api_key:
