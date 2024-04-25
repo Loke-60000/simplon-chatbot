@@ -66,7 +66,7 @@ jobs:
           --ports 8000 \
           --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }}
-          
+
       - name: Deploy Frontend to Azure Container Instances
         run: |
           az container create \
