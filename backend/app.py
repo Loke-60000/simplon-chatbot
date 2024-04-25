@@ -28,8 +28,16 @@ app.add_middleware(
 )
 
 chrome_options = Options()
+chrome_options = Options()
 chrome_options.add_argument("--headless")
-chrome_options.binary_location = '/usr/bin/chromium'
+# Disables GPU hardware acceleration
+chrome_options.add_argument("--disable-gpu")
+# Bypass OS security model, WARNING: not secure
+chrome_options.add_argument("--no-sandbox")
+# Overcome limited resource problems
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.binary_location = '/usr/bin/chromium-browser'
+
 service = Service(executable_path='/usr/bin/chromedriver')
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
