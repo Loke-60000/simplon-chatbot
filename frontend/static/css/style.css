@@ -168,7 +168,7 @@ button:hover {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1225px) {
   .chat-container {
     width: 100vw;
     height: 100vh;
