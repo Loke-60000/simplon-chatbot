@@ -54,7 +54,7 @@ jobs:
           --resource-group loke60000 \
           --name lokapi-adabot-backend \
           --image lokbotchat.azurecr.io/backend:${{ github.run_id }} \
-          --dns-name-label lokapi-adabot-backend-${{ github.run_id }} \
+          --dns-name-label lokapi-adabot-backend \
           --ports 8000 \
           --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }}
@@ -65,7 +65,7 @@ jobs:
           --resource-group loke60000 \
           --name lokapi-adabot-frontend \
           --image lokbotchat.azurecr.io/frontend:${{ github.run_id }} \
-          --dns-name-label lokapi-adabot-frontend-${{ github.run_id }} \
+          --dns-name-label lokapi-adabot-frontend \
           --ports 8001 \
           --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }}
