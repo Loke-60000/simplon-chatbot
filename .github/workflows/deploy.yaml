@@ -48,24 +48,15 @@ jobs:
           docker build -t lokbotchat.azurecr.io/frontend:${{ github.run_id }} .
           docker push lokbotchat.azurecr.io/frontend:${{ github.run_id }}
 
-      - name: Deploy Backend to Azure Container Instances
+      - name: Deploy to Azure Container Instances
         run: |
           az container create \
           --resource-group loke60000 \
-          --name lokapi-adabot-backend \
+          --name lokapi-adabot-app \
+          --dns-name-label lokapi-adabot \
           --image lokbotchat.azurecr.io/backend:${{ github.run_id }} \
-          --dns-name-label lokapi-adabot-backend \
-          --ports 8000 \
-          --registry-username lokbotchat \
-          --registry-password ${{ secrets.ACR_PASSWORD }}
-
-      - name: Deploy Frontend to Azure Container Instances
-        run: |
-          az container create \
-          --resource-group loke60000 \
-          --name lokapi-adabot-frontend \
           --image lokbotchat.azurecr.io/frontend:${{ github.run_id }} \
-          --dns-name-label lokapi-adabot-frontend \
-          --ports 8001 \
+          --ports 8000 8001 \
           --registry-username lokbotchat \
-          --registry-password ${{ secrets.ACR_PASSWORD }}
+          --registry-password ${{ secrets.ACR_PASSWORD }} \
+          --environment-variables 'FRONTEND_PORT=8001' 'BACKEND_PORT=8000'
