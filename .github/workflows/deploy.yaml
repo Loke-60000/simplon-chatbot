@@ -48,14 +48,6 @@ jobs:
           docker build -t lokbotchat.azurecr.io/frontend:${{ github.run_id }} .
           docker push lokbotchat.azurecr.io/frontend:${{ github.run_id }}
 
-      # - name: Deploy Backend to Azure App Service
-      #   run: |
-      #     az webapp config container set --name lokbackendchatbot --resource-group loke60000 --docker-custom-image-name lokbotchat.azurecr.io/backend:${{ github.run_id }}
-
-      # - name: Deploy Frontend to Azure App Service
-      #   run: |
-      #     az webapp config container set --name lokfrontendchatbot --resource-group loke60000 --docker-custom-image-name lokbotchat.azurecr.io/frontend:${{ github.run_id }}
-
       - name: Deploy Backend to Azure Container Instances
         run: |
           az container create \
@@ -64,7 +56,7 @@ jobs:
           --image lokbotchat.azurecr.io/backend:${{ github.run_id }} \
           --dns-name-label lokapi-adabot-backend-${{ github.run_id }} \
           --ports 8000 \
-          --registry-username s \
+          --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }}
 
       - name: Deploy Frontend to Azure Container Instances
