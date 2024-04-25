@@ -58,7 +58,7 @@ jobs:
           --ports 8000 \
           --registry-username lokbotchat \
           --registry-password ${{ secrets.ACR_PASSWORD }} \
-          --environment-variables BACKEND_PORT=8000
+          --environment-variables BACKEND_PORT=8000 AZURE_OPENAI_KEY=${{ secrets.AZURE_OPENAI_KEY }}
 
       - name: Deploy frontend to Azure Container Instances
         run: |
