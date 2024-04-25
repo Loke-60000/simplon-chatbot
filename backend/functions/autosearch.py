@@ -95,8 +95,6 @@ def intelligent_search(initial_query, azure_ai_service):
         driver.quit()
 
 
-
-
 api_key = os.getenv("AZURE_OPENAI_KEY")
 if not api_key:
     raise Exception("API key not found")
