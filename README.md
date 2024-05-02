@@ -1,8 +1,8 @@
-# FastAPI Application with Azure OpenAI
+# Chatbot Application with Azure OpenAI
 
 ## Overview
 
-This FastAPI application integrates Azure OpenAI to provide text generation based on conversation histories.
+This application integrates Azure OpenAI to provide text generation based on conversation histories.
 
 ## API Usage
 
