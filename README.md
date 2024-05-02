@@ -1,24 +1,40 @@
-# Chatbot API/CLI
+# FastAPI Application with Azure OpenAI
 
-## Installation
+## Overview
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
-2. Navigate to the project directory: `cd your-repo`
-3. Install the required dependencies: `pip install -r requirements.txt`
-4. Open the `config.py` file and set the `api_key` variable to your GPT 3.5 API key.
+This FastAPI application integrates Azure OpenAI to provide text generation based on conversation histories.
 
-## Usage
+## API Usage
 
-**Warning:** The CLI sends the entire history every time. Manage your API's credit carefully.
+### Start the backend Server
 
-- Run the CLI
+Navigate to the backend directory and start the API server with the following commands:
 
-```
-python cli-chat.py
+```bash
+uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-- Run the API
+## Endpoint Documentation
 
-```
-python api.py
+### Generate Text
+
+- **URL**: `/generate-text`
+- **Method**: `POST`
+- **Description**: Generates text based on the provided conversation history.
+- **Request Body**:
+  - `system`: A brief description about the system's context.
+  - `history`: A list of messages including sender and content.
+  - `temperature`: Adjusts the randomness of the response.
+  - `max_tokens`: Limits the length of the generated response.
+  - `top_p`: Controls nucleus sampling.
+  - `frequency_penalty`: Reduces the likelihood of token repetition.
+  - `presence_penalty`: Encourages the introduction of new topics.
+- **Response**: JSON with generated text and configuration or error message.
+
+### Start the frontend Server
+
+Navigate to the frontend directory and start the server with:
+
+```bash
+uvicorn app:app --host 0.0.0.0 --port 8001
 ```
